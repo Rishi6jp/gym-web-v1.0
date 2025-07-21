@@ -1,14 +1,14 @@
 import { ArrowUpRight } from "@/styles/icons/ArrowUpRight"
-import { Button } from "./Button"
-import { Navbar } from "./Navbar"
+import { Button } from "../components/Button"
+import { Navbar } from "../components/Navbar"
 import { ArrowRightCircle } from "@/styles/icons/ArrowRightCircle"
 import { ArrowLeftCircle } from "@/styles/icons/ArrowLeftCircle"
-import Marquee from "./Marquee"
+import { MorqueeScroll } from "../components/MorqueeScroll"
 
 export const Hero = () => {
     return (
-        <div className="bg-[url(../styles/assets/hero.jpeg)] bg-cover text-white">
-            <div className="mx-50 pt-8 space-y-20 pb-12">
+        <div className=" bg-[url(../styles/assets/hero.jpeg)] bg-cover text-white" >
+            <div className=" px-50 pt-8 space-y-20 pb-12 bg-black/30 backdrop-blur-sm">
                 <Navbar/>
                 <div className="text-center pt-5 space-y-3">
                     <div className="font-heading text-7xl tracking-wider">WORK WITH PROFESSIONALS</div>
@@ -24,7 +24,6 @@ export const Hero = () => {
                         <ArrowRightCircle/>
                     </div>
                 </div>
-                <Marquee/>
             </div>
             
         </div>
