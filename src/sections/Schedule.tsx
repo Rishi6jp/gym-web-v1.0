@@ -2,13 +2,16 @@ import { Button } from "@/components/Button"
 import deadLift from "@/styles/assets/DeadLift.jpg"
 import Image from "next/image"
 import squat from "@/styles/assets/images.png"
+import timetable from "@/styles/assets/schedule.png"
 
 
 
 export const Schedule = () =>{
-    return <div className="bg-black pb-20 pt-20 space-y-20">
-        <div>
-            <div></div>
+    return <div className="bg-black text-white pb-20 pt-20 space-y-20">
+        <div className="mx-50 text-center space-y-3">
+            <div>
+                <Image src={timetable}></Image>
+            </div>
             <div><Button title="VIEW MORE"/></div>
         </div>
         <div>
@@ -16,6 +19,10 @@ export const Schedule = () =>{
         </div>
         <div className="text-center">
             <div className="tracking-wider text-5xl font-heading text-white">OUR GYM PASSES</div>
+            <div>
+                <div>Monthly / Yearly</div>
+                <button type="toggle">he</button>
+            </div>
         </div>
         <div className="mx-50 border-grayer border-1"></div>
         <div className="mx-50 space-y-10">
