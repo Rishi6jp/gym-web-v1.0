@@ -10,11 +10,11 @@ import { Contact } from "@/sections/Contact";
 export default function Home() {
   return (
    <div>
-    <Hero/>
+    {/* <Hero/>
     <div className="mx-0">
       <MorqueeScroll text="🔥 BOXING 🥊 PILATES 🧘‍♀️ STRENGTH 💪 DANCE 💃 MEDITATION 🧘‍♂️" speed={15}/>
     </div>
-    <About/>
+    <About/> */}
     <Coaches/>
     <Schedule/>
     <Contact/>
