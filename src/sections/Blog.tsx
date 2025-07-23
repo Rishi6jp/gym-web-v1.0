@@ -84,7 +84,7 @@ interface BlogProp {
 const BlogCard = ({img, title, about}: BlogProp) =>{
     return <div className="text-left">
             <div>
-                <Image src={img} alt={title} width="" height="" className="h-50 w-auto object-cover overflow-hidden rounded-2xl"/>
+                <Image src={img} alt={title} width="10" height="10" className="h-50 w-auto object-cover overflow-hidden rounded-2xl"/>
             </div>
             <div className="mt-2">
                 <Button title={title}/>
