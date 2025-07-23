@@ -1,10 +1,10 @@
 "use client"
 
 import { Button } from "@/components/Button"
-import deadLift from "@/styles/assets/DeadLift.jpg"
+import DeadLift from "@/styles/assets/DeadLift.jpg"
 import Image from "next/image"
-import squat from "@/styles/assets/squat.jpg"
-import timetable from "@/styles/assets/schedule.png"
+import Squat from "@/styles/assets/squat.jpg"
+import Timetable from "@/styles/assets/schedule.png"
 import { useState } from "react"
 import {motion, spring} from "framer-motion"
 import { Tick } from "@/styles/icons/Tick"
@@ -17,12 +17,12 @@ export const Schedule = () =>{
     return <div className="bg-black text-white pb-20 pt-20 space-y-20">
         <div className="mx-50 text-center space-y-3">
             <div>
-                <Image width="0" height="0" alt="" src={timetable}></Image>
+                <Image width="0" height="0" alt="" src={Timetable}></Image>
             </div>
             <div><Button title="VIEW MORE"/></div>
         </div>
         <div>
-            <Image src={deadLift} alt="" width="0" height="0"className="w-full object-cover h-150"/>
+            <Image src={DeadLift} alt="" width="0" height="0"className="w-full object-cover h-150"/>
         </div>
         <div className="text-center">
             <div className="tracking-wider text-5xl font-heading text-white mb-8">OUR GYM PASSES</div>
@@ -53,7 +53,7 @@ export const Schedule = () =>{
         <div className="mx-50 space-y-10">
         <div className=" tracking-wider text-5xl font-heading text-white">REVIEW FROM CLIENTS</div>
         <div className="relative">
-            <Image src={squat} alt="" width="0" height="0" className="w-full h-110 object-cover"/>  
+            <Image src={Squat} alt="" width="0" height="0" className="w-full h-110 object-cover"/>  
             <div className="absolute right-0 mb-10 mr-10 center-0 h-3/5 rounded-2xl w-3/6 bottom-0  bg-greenish">
 
             </div> 

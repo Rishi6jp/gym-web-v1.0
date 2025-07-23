@@ -5,7 +5,7 @@ import { Card } from "@/components/Card"
 import Barbell from "@/styles/assets/barbell.png"
 import Gripper from "@/styles/assets/griper-last.png"
 import Sipper from "@/styles/assets/siper.png"
-import about from "@/styles/assets/about.jpg"
+import Abouter from "@/styles/assets/about.jpg"
 import Image from "next/image"
 import Fem from "@/styles/assets/fem.jpg"
 import DeadLift from "@/styles/assets/DeadLift.jpg"
@@ -69,7 +69,7 @@ export const About = () => {
             </div>
             <div className="space-y-3 mx-50">
                 <div className="tracking-wider text-5xl font-heading text-white">ABOUT OUR GYM</div>
-                <Image src={about} alt="" width="0" height="0" className="w-full object-cover h-110 object-top rounded-2xl"/>
+                <Image src={Abouter} alt="" width="0" height="0" className="w-full object-cover h-110 object-top rounded-2xl"/>
                 <div className="grid grid-cols-3">
                     <div className="col-span-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio mollitia amet numquam vel adipisci laboriosam, tenetur nisi, aspernatur enim, nulla non fugit similique pariatur corporis cumque! Provident alias veritatis temporibus.</div>
                     <div className="col-span-1 flex justify-center items-center">
