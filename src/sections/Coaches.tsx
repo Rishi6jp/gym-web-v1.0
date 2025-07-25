@@ -70,7 +70,7 @@ interface CardProp {
 const CoachCard = ({ img, name, role}: CardProp) => {
     return <div>
         <div>
-            <Image src={img} alt={name} width="" height="" className="h-64 w-60 object-cover overflow-hidden rounded-2xl"/>
+            <Image src={img} alt={name} width="100" height="100" className="h-64 w-60 object-cover overflow-hidden rounded-2xl"/>
         </div>
         <div>
             <div className="font-bold text-2xl">{name}</div>
