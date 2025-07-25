@@ -1,0 +1,1235 @@
+Namespace
+---------
+Namespaces help avoid name conflicts when we have functions, 
+variables, or classes with the same name in different libraries 
+or parts of a large program.
+
+Basic Syntax of Namespace
+
+#include <iostream>
+using namespace std;
+// Define a namespace
+namespace Banking {
+     void display() {
+        cout << "Banking System Display" << endl;}    }
+// Another namespace
+namespace Shopping {
+    void display() {
+        cout << "Shopping Cart Display" << endl;
+    }
+}
+
+int main() {
+    // Calling functions using namespaces
+    Banking::display();   // Calls Banking's display
+    Shopping::display();  // Calls Shopping's display
+
+    return 0;
+}
+
+
+Real-Time Use Case Example:
+
+#include <iostream>
+using namespace std;
+
+namespace SBI {
+    void loan() {
+        cout << "SBI Loan Processing..." << endl;
+    }
+}
+
+namespace HDFC {
+    void loan() {
+        cout << "HDFC Loan Processing..." << endl;
+    }
+}
+
+int main() {
+    SBI::loan();
+    HDFC::loan();
+    return 0;
+}
+
+
+1. Nested Namespaces (C++17 and later)
+
+namespace App {
+    namespace Banking {
+        void greet() {
+            std::cout << "Welcome to the Banking App!" << std::endl;
+        }
+    }
+}
+
+
+int main(){
+App::Banking::greet();
+return 0;
+}
+
+
+
+
+Since C++17, you can also do this:
+
+namespace App::Banking {
+    void goodbye() {
+        std::cout << "Thank you for visiting!" << std::endl;
+    }
+}
+
+int main(){
+App::Banking:goodbye();
+returm 0;
+}
+
+
+2. Namespace Aliasing
+To avoid typing long names repeatedly:
+
+namespace ReserverBankofIndia {
+    void rules() {
+        std::cout << "Follow RBI Guidelines." << std::endl;
+    }
+}
+
+namespace RBI = ReserverBankofIndia;  // alias
+
+// Now use alias
+RBI::rules();
+
+
+3. Anonymous Namespace (used to hide details in one file)
+
+#include <iostream>
+using namespace std;
+
+namespace {
+    int secretCode = 1234;  // Only available in this file
+    void displaySecret() {
+        cout << "Secret Code: " << secretCode << endl;
+    }
+}
+
+int main() {
+    displaySecret(); //  Accessible
+    // secretCode++; //  Accessible
+    return 0;
+}
+
+
+Using Declaration vs Using Directive
+
+Using Declaration (recommended):
+using std::cout;
+using std::endl;
+
+cout << "Hello!" << endl;
+
+
+**** Brings only one identifier into the current scope.
+
+Using Directive (less recommended in header files):
+
+using namespace std;
+
+cout << "Hello!" << endl;
+
+Brings all of std into current scope → 
+can cause name clashes in large projects.
+
+
+Namespaces in Real-world Projects
+---------------------------------
+namespace Banking {
+    class Account { /*...*/ };
+}
+
+namespace ShoppingCart {
+    class Cart { /*...*/ };
+}
+
+
+Banking::User user1;
+ShoppingCart::User user2;
+
+
+Class Inside a Namespace
+------------------------
+#include <iostream>
+using namespace std;
+
+namespace Banking {
+    class Account {
+    private:
+        int accountNumber;
+        double balance;
+    public:
+        Account(int accNo, double initialBalance) {
+            accountNumber = accNo;
+            balance = initialBalance;
+        }
+        void showDetails() {
+            cout << "Account Number: " << accountNumber << endl;
+            cout << "Balance: " << balance << endl;
+        }
+    };
+
+} // namespace Banking
+
+int main() {
+    // Create object of class inside namespace
+    Banking::Account acc1(101, 5000.0);
+    acc1.showDetails();
+
+    return 0;
+}
+
+
+Two Different Classes in the Same Namespace
+-------------------------------------------
+#include <iostream>
+using namespace std;
+
+namespace MyApp {
+    class Student {
+    public:
+        void show() {
+            cout << "I am a Student class\n";
+        }
+    };
+}
+
+namespace MyApp {
+    class Teacher {
+    public:
+        void show() {
+            cout << "I am a Teacher class\n";
+        }
+    };
+}
+
+int main() {
+    MyApp::Student s;
+    MyApp::Teacher t;
+
+    s.show();
+    t.show();
+
+    return 0;
+}
+
+
+
+Constructors 
+------------
+
+It is  special function which is having the same name as that of a  class and it it used 
+"ONLY" to initialize the  member variables.
+
+NOTE: No business logic should be part of constructors.
+
+IMPORTANT: A constructor does not have a return type.
+why?
+bcos it is used to initialize the member variables only. so intentionally,
+all programming languages(OOP's) ignore return type,
+
+
+There are 4 types of constructors
+
+1 Default
+
+A constructor without any arguments.
+ex:
+
+class A{
+
+public:
+
+    A(){
+	cout<<"I am default constructor";
+	}
+};
+
+#include<iostream>
+using namespace std;
+#include<string.h>
+
+class Account{
+    int accountId;
+    string accountHolder;
+    public:
+    Account(){
+        cout<<"I am a Parent class"<<endl;
+    }
+};
+class SavingAccount : public Account{
+    public:
+    SavingAccount(){
+       cout<<"I am the child class of Account"<<endl;
+    }
+};
+int main(){
+    SavingAccount sa;
+    return 0;
+}
+
+
+2 Parameterized
+3 Copy
+4 Move
+
+class Student{
+	int studentId;
+	string studentName;
+	string department;
+
+
+	Student(int studentId,string studentName,string department){
+	studentId = studentId;
+	studentName = studentName;
+	department =  department;
+
+}
+
+
+};
+
+
+
+
+
+
+
+Types
+-----
+Single
+Multilevel
+Multiple
+Hierarchical
+hybrid
+
+Banking App
+-----------
+
+
+Using Single Inheritance
+------------------------
+#include <iostream>
+using namespace std;
+
+class Account {
+protected:
+    string accountHolder;
+    double balance;
+
+public:
+    Account(string name, double bal) {
+        accountHolder = name;
+        balance = bal;
+    }
+
+    void showDetails() {
+        cout << "Account Holder: " << accountHolder << endl;
+        cout << "Balance: " << balance << endl;
+    }
+};
+
+class SavingsAccount : public Account {
+string accountType;
+public:
+    SavingsAccount(string name, double bal,string accType) : Account(name, bal) {}
+
+	accountHolder - name;
+	balance = bal;
+	accountType = accType;
+}	
+    void addInterest() {
+        balance += balance * 0.05;
+    }
+};
+
+int main() {
+    SavingsAccount s1("Vijay", 5000,"savings");
+    s1.addInterest();
+    s1.showDetails();
+    return 0;
+}
+
+
+
+Multilevel Inheritance
+----------------------
+
+class Account {
+public:
+    void basicFeature() {
+        cout << "Basic Account Features\n";
+    }
+};
+
+class SavingsAccount : public Account {
+public:
+    void savingFeature() {
+        cout << "Savings Account Feature\n";
+    }
+};
+
+class MobileSavingsAccount : public SavingsAccount {
+public:
+    void mobileFeature() {
+        cout << "Mobile Access Enabled\n";
+    }
+};
+
+int main() {
+    MobileSavingsAccount m1;
+    m1.basicFeature();
+    m1.savingFeature();
+    m1.mobileFeature();
+    return 0;
+}
+
+
+
+Hierarchical Inheritance
+------------------------
+
+class Account {
+public:
+    void commonFeature() {
+        cout << "Common Account Feature\n";
+    }
+};
+
+class SavingsAccount : public Account {
+public:
+    void savingFeature() {
+        cout << "Savings Account Feature\n";
+    }
+};
+
+class CurrentAccount : public Account {
+public:
+    void currentFeature() {
+        cout << "Current Account Feature\n";
+    }
+};
+
+int main() {
+    SavingsAccount s;
+    CurrentAccount c;
+
+    s.commonFeature();
+    s.savingFeature();
+
+    c.commonFeature();
+    c.currentFeature();
+
+    return 0;
+}
+
+
+Multiple Inheritance
+--------------------
+Let's say in a bank:
+
+CustomerDetails holds customer info.
+
+AccountDetails holds account info.
+
+CustomerAccount combines both.
+
+#include <iostream>
+using namespace std;
+
+// Base class 1
+class CustomerDetails {
+protected:
+    string name;
+    int customerID;
+public:
+    void setCustomer(string n, int id) {
+        name = n;
+        customerID = id;
+    }
+};
+
+// Base class 2
+class AccountDetails {
+protected:
+    int accountNumber;
+    double balance;
+public:
+    void setAccount(int accNo, double bal) {
+        accountNumber = accNo;
+        balance = bal;
+    }
+};
+
+// Derived class (inherits from both)
+class CustomerAccount : public CustomerDetails, public AccountDetails {
+public:
+    void display() {
+        cout << "Customer: " << name << " | ID: " << customerID << endl;
+        cout << "Account Number: " << accountNumber << " | Balance: " << balance << endl;
+    }
+};
+
+int main() {
+    CustomerAccount obj;
+    obj.setCustomer("Ravi", 101);
+    obj.setAccount(999001, 15000.75);
+    obj.display();
+    return 0;
+}
+
+
+
+Hybrid Inheritance
+------------------
+Let’s assume:
+
+Bank is the base class.
+
+CustomerDetails and AccountDetails both inherit from Bank.
+
+CustomerAccount inherits from both CustomerDetails and 
+AccountDetails.
+
+#include <iostream>
+using namespace std;
+
+// Base class
+class Bank {
+protected:
+    string bankName = "SuperBank";
+};
+
+// Derived from Bank
+class CustomerDetails : public Bank {
+protected:
+    string name;
+    int customerID;
+public:
+    void setCustomer(string n, int id) {
+        name = n;
+        customerID = id;
+    }
+};
+
+// Also derived from Bank
+class AccountDetails : public Bank {
+protected:
+    int accountNumber;
+    double balance;
+public:
+    void setAccount(int accNo, double bal) {
+        accountNumber = accNo;
+        balance = bal;
+    }
+};
+
+// Hybrid derived from CustomerDetails and AccountDetails
+class CustomerAccount : public CustomerDetails, public AccountDetails {
+public:
+    void display() {
+        cout << "Bank Name: " << CustomerDetails::bankName << endl;
+        cout << "Customer: " << name << " | ID: " << customerID << endl;
+        cout << "Account Number: " << accountNumber << " | Balance: " << balance << endl;
+    }
+};
+
+int main() {
+    CustomerAccount obj;
+    obj.setCustomer("Meena", 205);
+    obj.setAccount(987654, 25000.50);
+    obj.display();
+    return 0;
+}
+
+
+
+
+e-commerce app
+--------------
+
+Single Inheritance
+------------------
+
+#include <iostream>
+using namespace std;
+
+class Product {
+public:
+    string name;
+    double price;
+
+    Product(string n, double p) : name(n), price(p) {}
+
+    void showDetails() {
+        cout << "Product: " << name << ", Price: " << price << endl;
+    }
+};
+
+class Clothing : public Product {
+public:
+    string size;
+
+    Clothing(string n, double p, string s) : Product(n, p), size(s) {}
+
+    void showClothingDetails() {
+        cout << "Clothing Size: " << size << endl;
+    }
+};
+
+int main() {
+    Clothing shirt("T-Shirt", 599.0, "L");
+    shirt.showDetails();
+    shirt.showClothingDetails();
+    return 0;
+}
+
+
+Multilevel Inheritance
+----------------------
+
+class Product {
+public:
+    void showBasicInfo() {
+        cout << "General Product Information\n";
+    }
+};
+
+class Electronics : public Product {
+public:
+    void showElectronicsFeature() {
+        cout << "Electronics: 1 Year Warranty\n";
+    }
+};
+
+class Mobile : public Electronics {
+public:
+    void showMobileFeature() {
+        cout << "Mobile: Android OS\n";
+    }
+};
+
+int main() {
+    Mobile m;
+    m.showBasicInfo();
+    m.showElectronicsFeature();
+    m.showMobileFeature();
+    return 0;
+}
+
+
+
+Hierarchical Inheritance
+------------------------
+
+class Product {
+public:
+    void showProductTag() {
+        cout << "E-Commerce Product Tag\n";
+    }
+};
+
+class Clothing : public Product {
+public:
+    void showClothingFeature() {
+        cout << "Fabric: Cotton\n";
+    }
+};
+
+class Electronics : public Product {
+public:
+    void showElectronicsFeature() {
+        cout << "Battery Included\n";
+    }
+};
+
+int main() {
+    Clothing jeans;
+    Electronics laptop;
+
+    jeans.showProductTag();
+    jeans.showClothingFeature();
+
+    laptop.showProductTag();
+    laptop.showElectronicsFeature();
+
+    return 0;
+}
+
+
+Multiple Inheritance
+--------------------
+
+class Shipping {
+public:
+    void calculateShipping() {
+        cout << "Shipping Cost: ₹50\n";
+    }
+};
+
+class Tax {
+public:
+    void calculateTax() {
+        cout << "Tax: 18%\n";
+    }
+};
+
+class Invoice : public Shipping, public Tax {
+public:
+    void generateInvoice() {
+        cout << "Invoice Generated for Order\n";
+    }
+};
+
+int main() {
+    Invoice inv;
+    inv.calculateShipping();
+    inv.calculateTax();
+    inv.generateInvoice();
+    return 0;
+}
+
+Multi-Level Inheritance
+-----------------------
+
+#include <iostream>
+#include<string>
+using namespace std;
+class Banking{
+    int a,b;
+    public:
+    Banking(int a,int b){
+        this->a = a;
+        this->b = b;
+    }
+
+    void bankDetails(){
+        cout<<a<<endl;
+        cout<<b<<endl;
+    }
+};
+
+class Account : private Banking{
+    int c;
+    public:
+    Account(int a,int b,int c):Banking(a,b){
+        this->c = c;
+    }
+
+    void accountDetails(){
+        bankDetails();
+        cout<<c<<endl;
+        
+        
+    }
+};
+
+class SavingAccount : private Account{
+    int d;
+    public:
+    SavingAccount(int a,int b,int c,int d):Account(a,b,c){
+        this->d = d;
+    }
+    
+    void savingAccountDetails(){
+        accountDetails();
+        cout<<d<<endl;
+    }
+};
+
+int main(){
+SavingAccount sa(10,20,30,40);
+sa.savingAccountDetails();
+    return 0;
+}
+
+
+Private:
+// sa.accountDetails();     Error: private in SavingAccount
+    // sa.bankDetails();    Error: private in Account
+
+Public members become private.
+
+Accessible only within hierarchy.
+
+
+Protected:
+
+SavingAccount sa(1,2,3,4);
+sa.savingAccountDetails();     // Works
+// sa.accountDetails();       Still Error: protected in SavingAccount
+// sa.bankDetails();          Still Error: protected in Account
+
+Public and protected base members → become protected in derived.
+
+Still not accessible from outside the class hierarchy.
+
+
+Public:
+SavingAccount sa(1,2,3,4);
+sa.savingAccountDetails();     // works
+sa.accountDetails();           // Now accessible
+sa.bankDetails();              // Now accessible
+
+
+Hierarchial Inheritance
+-----------------------
+
+EMployee->Manager
+Employee->Developer
+Employee->Intern
+
+Developer->SeniorDeveloper
+Developer->AssociateDeveloper
+
+class Employee: Fields(id,name) functions: constructors and show functions
+class Developer:Fields(techStack) functions: constructors and show functions
+class Intern: Fields(duration) functions: constructors and show functions
+class Manager: Fields(dept) functions: constructors and show functions
+class SeniorDeveloper: Fields(stack,experience) functions: constructors and show functions
+class AssociateDeveloper: Fields(stack) functions: constructors and show functions
+
+
+class Employee{
+int id;
+string name;
+
+public:
+Employee(int id,string name){
+	this->id = id;
+	this->name = name;
+}
+
+void showEmployeeInfo(){
+
+	cout<<id<<name<<endl;
+}
+};
+
+
+
+class Manager : public Employee{
+string department;
+
+public:
+Manager(int id,string name,string department):Employee(id,name){
+	this->department = department;
+}
+
+void showManagerInfo(){
+
+	cout<<department<<endl;
+}
+};
+
+
+
+class Employee : public Developer{
+
+string techStack;
+
+public:
+Employee(int id,string name,string techStack):Employee(id,name){
+
+	this->techStack = techStack;
+}
+
+void showDeveloperInfo(){
+
+	cout<<id<<techStack<<endl;
+}
+};
+
+
+class SeniorDeveloper : public Developer{
+
+	string stack;
+	double experience;
+	public:
+	SeniorDeveloper(string techStack,string stack,double experience):Developer(techStack){
+		this->techStack= techStack;
+}
+
+	void showSrDeveloperInfo(){}
+};
+
+class Intern{
+int id;
+string name;
+
+public:
+Employee(int id,string name){
+	this->id = id;
+	this->name = name;
+}
+
+void showEmployeeInfo(){
+
+	cout<<id<<name<<endl;
+}
+};
+
+Multiple Inheritance
+--------------------
+
+Imagine an organization where:
+Every Person has basic personal info.
+Every Employee has a salary and job role.
+Some employees are also TaxPayers who file income tax.
+We want to build a system that uses:
+
+class Person
+class TaxPayer
+class Employee : public Person,TaxPayer {};
+
+
+class Person: Fields(name,age) functions: setPersonInfo(name,age),displayPersonDetails()
+class TaxPayer :Fields(aadhar,pan) functions:setTaxInfo(aadhar,pan),displayTaxInfo()
+class Employee  : Fields(empId,salary) functions:setEmployeeInfo(empId,salary ),displayCustomer()
+
+class Person{
+int age;
+string name;
+public:
+void setPersonInfo(string name,int age){
+	this->name = name;
+	this->age = age;
+}
+};
+
+
+name:string
+email:string
+mobile:string
+
+
+void setName(string name){
+	this->name = name;
+}
+void setEmail(string name){
+	this->name = name;
+}
+void setMobile(string name){
+	this->name = name;
+}
+
+string getName(){
+	return name;
+}
+string getEmail(){
+	return name;
+}
+string getMobile(){
+	return name;
+}
+
+
+
+
+#include <iostream>
+using namespace std;
+
+// Base class 1
+class Person {
+protected:
+    string name;
+    int age;
+public:
+    void setPersonInfo(string n, int a) {
+        name = n;
+        age = a;
+    }
+    void displayPersonInfo() {
+        cout << "Name: " << name << ", Age: " << age << endl;
+    }
+};
+
+// Base class 2
+class TaxPayer {
+protected:
+    string panNumber;
+public:
+    void setTaxInfo(string pan) {
+        panNumber = pan;
+    }
+    void displayTaxInfo() {
+        cout << "PAN: " << panNumber << endl;
+    }
+};
+
+// Derived class using Multiple Inheritance
+class Employee : public Person, public TaxPayer {
+    int empID;
+    float salary;
+public:
+    void setEmployeeInfo(int id, float sal) {
+        empID = id;
+        salary = sal;
+    }
+    void displayEmployeeInfo() {
+        cout << "Employee ID: " << empID << ", Salary: " << salary << endl;
+    }
+};
+
+int main() {
+    Employee e1;
+    e1.setPersonInfo("Vikram", 28);
+    e1.setTaxInfo("ABCDE1234F");
+    e1.setEmployeeInfo(101, 75000.0);
+
+    cout << "--- Employee Details ---" << endl;
+    e1.displayPersonInfo();
+    e1.displayTaxInfo();
+    e1.displayEmployeeInfo();
+
+    return 0;
+}
+
+
+
+
+
+
+Example2
+
+In a bank:
+
+A Person has name, age, and contact details.
+
+A KYCVerified interface/class has PAN, Aadhaar, etc.
+
+A Customer is both a Person and also KYCVerified.
+
+
+class Person: Fields(name,age) functions: setPerson(name,age),displayPersonDetails()
+class KYXVerified: Fields(aadhar,pan) functions:setKYC(aadhar,pan),displayKYC()
+class Customer: Fields(accountType,balance) functions:setCustomer(accType,bal),displayCustomer()
+
+
+#include <iostream>
+using namespace std;
+
+// Base class 1: General Person info
+class Person {
+protected:
+    string name;
+    int age;
+public:
+    void setPerson(string n, int a) {
+        name = n;
+        age = a;
+    }
+    void displayPerson() {
+        cout << "Name: " << name << ", Age: " << age << endl;
+    }
+};
+
+// Base class 2: KYC Verification details
+class KYCVerified {
+protected:
+    string pan;
+    string aadhaar;
+public:
+    void setKYC(string p, string a) {
+        pan = p;
+        aadhaar = a;
+    }
+    void displayKYC() {
+        cout << "PAN: " << pan << ", Aadhaar: " << aadhaar << endl;
+    }
+};
+
+// Derived class using Multiple Inheritance
+class Customer : public Person, public KYCVerified {
+    string accountType;
+    double balance;
+public:
+    void setAccount(string accType, double bal) {
+        accountType = accType;
+        balance = bal;
+    }
+    void displayAccount() {
+        cout << "Account Type: " << accountType << ", Balance: ₹" << balance << endl;
+    }
+};
+
+int main() {
+    Customer c1;
+    c1.setPerson("Rohit Sharma", 35);
+    c1.setKYC("ABCDE1234F", "123456789012");
+    c1.setAccount("Savings", 250000.75);
+
+    cout << "--- Customer Details ---" << endl;
+    c1.displayPerson();
+    c1.displayKYC();
+    c1.displayAccount();
+
+    return 0;
+}
+
+	Initializing Member Variables
+
+In OOP's, there are 2 ways to initialize the member variables.
+
+1 Using COnstructors.
+2 Using setter/mutator functions
+
+C++ directly do not have support for setter functions but can be implemented
+easily.
+
+Correct way of writing Setter functions
+
+class FaceBook{
+string name;
+string email;
+string mobile;
+
+// setter functions
+public:
+ void setName(string name){
+	this->name = name;
+}
+ void setEmail(string email){
+	this->email = email;
+}
+ void setMobile(string mobile){
+	this->mobile = mobile;
+}
+string getName(){
+	return name;
+}
+string getEmail(){
+	return email;
+}
+string getMobile(){
+	return mobile;
+}
+
+};
+
+
+
+FA-1 Test
+---------
+Coding Questions
+
+Basic Operations Question - 2
+Structures-1
+Classes and Objects-1 
+
+Structures
+----------
+
+Difference between structure in C and C++.
+
+In C and C++ member variables are public but the difference
+lies with respect to member functions.
+
+we can write member functions in c++ while we cannot write it in C
+
+Difference between structure and Class in C++
+
+1 by default the member variables in structures are public while in class,
+they are private.
+
+2 We cannot implement POlymorphism, inheritance, association, coupling
+etc... in structures while classes are meant to implement it.
+
+
+In C
+----						In C++
+struct Employee{			struct Employee{
+						int id;
+	int id;
+	string name;				string name;
+	string dept;				string dept;
+					    						void getData(){
+						cout<<id<<name<<dept<<endl;
+						}
+}						}
+
+int main(){					int main(){
+Employee e1;					Employee e1;
+e1.id = 100;					e1.id=100;
+e1.name = "jay";				e1.name = "jay";
+e1.dept="HR";					e1.dept="HR";
+
+return 0;					return 0;
+						}
+}
+
+
+create a class called Calculator and perform basic operations like add,divide,subtraction
+and multi. make sure the function return the required value(int/double).
+create object and invoke the functions on the object.
+ask the user to input the values.
+
+
+
+
+Write a program to find the factorial of a number. Ask the user for the input and
+based on input calculate the factorial.
+condition: if the output value is more than 4bytes range, print the message
+"out of range" else print "within Range".
+
+4 bytes range -> 2147483647
+
+
+
+Anonymous Classes
+-----------------
+
+A class wihtout a name is called Anonymous class.
+ex:
+class {
+int a,b;
+public:
+void setData(int a,int b){
+	this->a = a;
+	this->b = b;
+}
+void getData(){
+cout<<a<<b<<endl;
+}
+} obj1,obj2,obj3 ;
+
+int main(){
+obj1.setData(10,20);
+obj1.getData();
+return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
